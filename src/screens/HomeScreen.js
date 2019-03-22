@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, Button, Image, FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { SearchBar } from "react-native-elements";
-import PokemonList from "../components/PokemonList";
 
+import PokemonList from "../components/PokemonList";
+import SearchBarPokemon from "../components/SearchBarPokemon";
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -14,10 +14,19 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
+      <View>
+
+<SearchBarPokemon>
+
+</SearchBarPokemon>
+
       <PokemonList
         pokemons={this.state.cards}
         navigation={this.props.navigation}
       />
+      
+      </View>
+      
     );
   }
 
