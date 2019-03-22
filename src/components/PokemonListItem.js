@@ -5,12 +5,13 @@ class PokemonListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      card: props.card
+      card: props.card,
+      navigation: props.navigation
     };
   }
 
   _onPressButton() {
-    Alert.alert(this.state.card.name);
+    this.props.navigation.navigate("Details", { card: this.props.card });
   }
 
   render() {

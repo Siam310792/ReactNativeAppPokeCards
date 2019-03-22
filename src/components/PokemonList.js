@@ -2,11 +2,13 @@ import React from "react";
 import { FlatList } from "react-native";
 import PokemonListItem from "./PokemonListItem";
 
-function PokemonList({ pokemons }) {
+function PokemonList({ pokemons, navigation }) {
   return (
     <FlatList
       data={pokemons}
-      renderItem={({ item }) => <PokemonListItem card={item} />}
+      renderItem={({ item }) => (
+        <PokemonListItem card={item} navigation={navigation} />
+      )}
       keyExtractor={card => card.id}
       numColumns={2}
     />

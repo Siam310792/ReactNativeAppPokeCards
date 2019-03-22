@@ -13,7 +13,12 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    return <PokemonList pokemons={this.state.cards} />;
+    return (
+      <PokemonList
+        pokemons={this.state.cards}
+        navigation={this.props.navigation}
+      />
+    );
   }
 
   fetchData = () => {
