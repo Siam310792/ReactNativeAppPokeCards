@@ -1,5 +1,9 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image } from "react-native";
+
+function PokemonCard({card}){
+  return <Image style={{width: 50, height: 50}} source={{uri: card.imageUrl}} />
+} 
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -17,7 +21,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>{this.state.itemCount}</Text>
+          {
+            this.state.cards.map(card => <PokemonCard card={card} />)
+          }
           <Button
             title="Go to Details"
             onPress={() => this.props.navigation.navigate('Details')}
@@ -29,10 +35,11 @@ class HomeScreen extends React.Component {
 fetchData = (currentPage) => {
   let request = null
   
-  request = new Request(`https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32&name="Charizard"`)
+  request = new Request(`https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32&name=Charizard`)
  
   fetch(request, )
   .then(results => {
+    console.log(results)
     const itemCount = results.headers.get("Total-Count")
     const totalPage = Math.trunc(itemCount/results.headers.get("Page-Size")) + 1
     this.setState({nbPage:totalPage, itemCount:itemCount})
