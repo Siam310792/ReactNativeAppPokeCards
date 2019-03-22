@@ -1,13 +1,24 @@
 import { StyleSheet } from "react-native";
 
-export default StyleSheet.create({
+export default styles = StyleSheet.create({
   previousButton: {
-    backgroundColor: "#f1f1f1",
+    flex: 0,
     color: "black",
-    marginRight: 10
+    marginRight: 10,
+    padding : 8
   },
   nextButton: {
-    fontSize: 20,
-    textAlign: "center"
+    flex: 0,
+    color: "black",
+    marginLeft: 10,
+    padding: 8
+  },
+  navBar: {
+    flexDirection: 'row', 
+    justifyContent:'space-around', 
+    marginLeft:50,
+    marginRight:50,
+    marginTop:20
   }
 });
+

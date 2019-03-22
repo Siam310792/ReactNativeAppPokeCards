@@ -6,7 +6,7 @@ function PokemonList({ pokemons, navigation }) {
   return (
     <FlatList
       style={{
-        flex: 0
+        margin: 'auto'
       }}
       data={pokemons}
       renderItem={({ item }) => (

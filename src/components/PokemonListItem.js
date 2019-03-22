@@ -24,6 +24,7 @@ class PokemonListItem extends React.Component {
           style={{
             height: 200,
             width: 150,
+            margin:16,
             flexDirection: "row",
             justifyContent: "space-around",
             alignItems: "flex-start",

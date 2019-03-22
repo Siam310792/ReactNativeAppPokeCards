@@ -11,13 +11,14 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
+import styles from "../style/Styles";
 
 function NavigationBar(props) {
   return (
-    <View>
+    <View style={styles.navBar}>
       <View
         style={{
-          flex: 1,
+          flexDirection: 'row',
           margin: "auto",
           lineHeight: 30,
           textAlign: "center",
@@ -29,37 +30,42 @@ function NavigationBar(props) {
         {props.currentPage === 1 ? (
           <Button
             style={styles.previousButton}
-            title="1"
+            title="<<"
+            color='#f1f1f1'
             onPress={props.firstPage}
             disabled
           />
         ) : (
           <Button
             style={styles.previousButton}
-            title="2"
+            title="<<"
+            color='#f1f1f1'
             onPress={props.firstPage}
           />
         )}
         {props.currentPage === 1 ? (
           <Button
             style={styles.previousButton}
-            title="3"
+            title="<"
+            color='#f1f1f1'
             onPress={props.previousPage}
             disabled
           />
         ) : (
           <Button
             style={styles.previousButton}
-            title="4"
+            title="<"
+            color='#f1f1f1'
             onPress={props.previousPage}
           />
         )}
       </View>
 
       <Text>{props.currentPage}</Text>
+
       <View
         style={{
-          flex: 1,
+          flexDirection: 'row',
           margin: "auto",
           lineHeight: 30,
           textAlign: "center",
@@ -71,28 +77,32 @@ function NavigationBar(props) {
         {props.currentPage === props.nbPage ? (
           <Button
             style={styles.nextButton}
-            title="4"
+            title=">"
+            color='#f1f1f1'
             onPress={props.nextPage}
             disabled
           />
         ) : (
           <Button
             style={styles.nextButton}
-            title="5"
+            title=">"
+            color='#f1f1f1'
             onPress={props.nextPage}
           />
         )}
         {props.currentPage === props.nbPage ? (
           <Button
             style={styles.nextButton}
-            title="6"
+            title=">>"
+            color='#f1f1f1'
             onPress={props.lastPage}
             disabled
           />
         ) : (
           <Button
             style={styles.nextButton}
-            title="7"
+            title=">>"
+            color='#f1f1f1'
             onPress={props.lastPage}
           />
         )}
@@ -188,22 +198,5 @@ class HomeScreen extends React.Component {
     this.fetchData();
   }
 }
-
-const styles = StyleSheet.create({
-  previousButton: {
-    flex: 0,
-    backgroundColor: "#f1f1f1",
-    color: "black",
-    marginRight: 10,
-    padding: 8
-  },
-  nextButton: {
-    flex: 0,
-    backgroundColor: "#f1f1f1",
-    color: "black",
-    marginLeft: 10,
-    padding: 8
-  }
-});
 
 export default HomeScreen;
