@@ -74,7 +74,6 @@ class HomeScreen extends React.Component {
 
     fetch(request)
       .then(results => {
-        console.log(results)
         const itemCount = results.headers.get("Total-Count");
         const totalPage =
           Math.trunc(itemCount / results.headers.get("Page-Size")) + 1;
@@ -85,6 +84,7 @@ class HomeScreen extends React.Component {
         this.setState({ cards: data.cards });
       })
       .catch(() => {});
+      console.log(this.state.currentPage)
     this.setState({ currentPage });
     console.log(this.state.currentPage)
   };
@@ -93,6 +93,7 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     this.fetchData(this.state.currentPage);
   }
+
 }
 
 export default HomeScreen;

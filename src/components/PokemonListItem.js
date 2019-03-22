@@ -22,7 +22,7 @@ class PokemonListItem extends React.Component {
       >
         <Image
           style={{
-            height: 200,
+            height: 220,
             width: 150,
             margin:16,
             flexDirection: "row",
