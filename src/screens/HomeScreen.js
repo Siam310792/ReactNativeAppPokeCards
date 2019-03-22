@@ -1,115 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  FlatList,
-  StyleSheet,
-  Header
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {View} from "react-native";
 import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
-import styles from "../style/Styles";
-
-function NavigationBar(props) {
-  return (
-    <View style={styles.navBar}>
-      <View
-        style={{
-          flexDirection: 'row',
-          margin: "auto",
-          lineHeight: 30,
-          textAlign: "center",
-          verticalAlign: "middle",
-          justifyContent: "space-between",
-          width: "15%"
-        }}
-      >
-        {props.currentPage === 1 ? (
-          <Button
-            style={styles.previousButton}
-            title="<<"
-            color='#f1f1f1'
-            onPress={props.firstPage}
-            disabled
-          />
-        ) : (
-          <Button
-            style={styles.previousButton}
-            title="<<"
-            color='#f1f1f1'
-            onPress={props.firstPage}
-          />
-        )}
-        {props.currentPage === 1 ? (
-          <Button
-            style={styles.previousButton}
-            title="<"
-            color='#f1f1f1'
-            onPress={props.previousPage}
-            disabled
-          />
-        ) : (
-          <Button
-            style={styles.previousButton}
-            title="<"
-            color='#f1f1f1'
-            onPress={props.previousPage}
-          />
-        )}
-      </View>
-
-      <Text>{props.currentPage}</Text>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          margin: "auto",
-          lineHeight: 30,
-          textAlign: "center",
-          verticalAlign: "middle",
-          justifyContent: "space-between",
-          width: "15%"
-        }}
-      >
-        {props.currentPage === props.nbPage ? (
-          <Button
-            style={styles.nextButton}
-            title=">"
-            color='#f1f1f1'
-            onPress={props.nextPage}
-            disabled
-          />
-        ) : (
-          <Button
-            style={styles.nextButton}
-            title=">"
-            color='#f1f1f1'
-            onPress={props.nextPage}
-          />
-        )}
-        {props.currentPage === props.nbPage ? (
-          <Button
-            style={styles.nextButton}
-            title=">>"
-            color='#f1f1f1'
-            onPress={props.lastPage}
-            disabled
-          />
-        ) : (
-          <Button
-            style={styles.nextButton}
-            title=">>"
-            color='#f1f1f1'
-            onPress={props.lastPage}
-          />
-        )}
-      </View>
-    </View>
-  );
-}
+import Navigationbar from "../components/Navigationbar"
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -120,26 +13,6 @@ class HomeScreen extends React.Component {
       itemCount: 0,
       nbPage: 0
     };
-  }
-
-  render() {
-    return (
-      <View>
-        <NavigationBar
-          currentPage={this.state.currentPage}
-          firstPage={this.firstPage.bind(this)}
-          previousPage={this.previousPage.bind(this)}
-          nextPage={this.nextPage.bind(this)}
-          lastPage={this.lastPage.bind(this)}
-          nbPage={this.state.nbPage}
-        />
-
-        <PokemonList
-          pokemons={this.state.cards}
-          navigation={this.props.navigation}
-        />
-      </View>
-    );
   }
 
   firstPage = () => {
@@ -172,13 +45,36 @@ class HomeScreen extends React.Component {
     }
   };
 
-  fetchData = currentPage => {
+
+  render() {
+    return (
+      <View>
+        <Navigationbar
+          currentPage={this.state.currentPage}
+          firstPage={this.firstPage.bind(this)}
+          previousPage={this.previousPage.bind(this)}
+          nextPage={this.nextPage.bind(this)}
+          lastPage={this.lastPage.bind(this)}
+          nbPage={this.state.nbPage}
+        />
+
+        <PokemonList
+          pokemons={this.state.cards}
+          navigation={this.props.navigation}
+        />
+      </View>
+    );
+  }
+
+  
+  fetchData = (currentPage) => {
     let request = new Request(
-      `https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32`
+      `https://api.pokemontcg.io/v1/cards?page=${this.state.currentPage}&pageSize=32`
     );
 
     fetch(request)
       .then(results => {
+        console.log(results)
         const itemCount = results.headers.get("Total-Count");
         const totalPage =
           Math.trunc(itemCount / results.headers.get("Page-Size")) + 1;
@@ -189,13 +85,13 @@ class HomeScreen extends React.Component {
         this.setState({ cards: data.cards });
       })
       .catch(() => {});
-    currentPage = currentPage;
     this.setState({ currentPage });
+    console.log(this.state.currentPage)
   };
 
   // Fetch de l'api
   componentDidMount() {
-    this.fetchData();
+    this.fetchData(this.state.currentPage);
   }
 }
 
