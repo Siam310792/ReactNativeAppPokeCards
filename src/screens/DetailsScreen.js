@@ -6,7 +6,14 @@ class DetailsScreen extends React.Component {
     const card = this.props.navigation.getParam("card");
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          background: "green"
+        }}
+      >
         <Text h4>{card.name}</Text>
         <Image
           source={{ uri: card.imageUrl }}
