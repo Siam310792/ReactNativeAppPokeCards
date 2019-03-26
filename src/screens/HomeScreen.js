@@ -2,14 +2,15 @@ import React from "react";
 import {View} from "react-native";
 import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
-import Navigationbar from "../components/Navigationbar"
+import Navigationbar from "../components/Navigationbar";
+import Store from '../Store';
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cards: [],
-      currentPage: 1,
+      currentPage: Store.currentPage,
       itemCount: 0,
       nbPage: 0
     };
@@ -69,7 +70,7 @@ class HomeScreen extends React.Component {
   
   fetchData = (currentPage) => {
     let request = new Request(
-      `https://api.pokemontcg.io/v1/cards?page=${this.state.currentPage}&pageSize=32`
+      `https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32`
     );
 
     fetch(request)
@@ -85,8 +86,9 @@ class HomeScreen extends React.Component {
       })
       .catch(() => {});
       console.log(this.state.currentPage)
-    this.setState({ currentPage });
-    console.log(this.state.currentPage)
+      Store.currentPage = currentPage
+      this.setState({ currentPage });
+      console.log(this.state.currentPage)
   };
 
   // Fetch de l'api
