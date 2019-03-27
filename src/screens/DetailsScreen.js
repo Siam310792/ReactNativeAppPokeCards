@@ -1,7 +1,26 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Image, Text } from "react-native-elements";
+
 class DetailsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      onFavorite : false,
+      sourceImage : require('../../assets/whitestar.png')
+    };
+  }
+
+  _onPressStar() {
+    if (this.state.onFavorite) {
+      this.setState( { sourceImage: require('../../assets/goldstar.png') } )
+      this.setState( { onFavorite : false })
+    } else {
+      this.setState( { sourceImage: require('../../assets/whitestar.png') } )
+      this.setState( { onFavorite : true })
+    }
+  }
+
   render() {
     const card = this.props.navigation.getParam("card");
 
@@ -14,6 +33,12 @@ class DetailsScreen extends React.Component {
           background: "green"
         }}
       >
+      <TouchableOpacity activeOpacity={0.5} onPress={ this._onPressStar.bind(this) } >
+      <Image source={this.state.sourceImage}  
+        style={{ width: 20, height: 20 }} 
+        />
+      </TouchableOpacity>
+
         <Text h4>{card.name}</Text>
         <Image
           source={{ uri: card.imageUrl }}
