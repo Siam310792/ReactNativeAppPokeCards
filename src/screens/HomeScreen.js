@@ -5,14 +5,6 @@ import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
 import Store from '../Store';
 
-_storeData = async () => {
-  try {
-    await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-  } catch (error) {
-    // Error saving data
-  }
-};
-
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
