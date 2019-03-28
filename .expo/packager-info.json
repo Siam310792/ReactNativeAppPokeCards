@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19003,
   "expoServerPort": 19001,
-  "packagerPort": 19004,
-  "packagerPid": 20080,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://7h-wgc.anonymous.reactnativeapppokecards.exp.direct",
   "packagerNgrokUrl": "https://packager.7h-wgc.anonymous.reactnativeapppokecards.exp.direct",
-  "ngrokPid": 2032,
+  "ngrokPid": 12692,
   "webpackServerPort": null
 }

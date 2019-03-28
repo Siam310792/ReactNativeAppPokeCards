@@ -12,7 +12,9 @@ class HomeScreen extends React.Component {
       cards: [],
       currentPage: Store.currentPage,
       itemCount: 0,
-      nbPage: 0
+      nbPage: 0,
+    pokemonName: "",
+    pokemonExactName: ""
     };
   }
 
@@ -46,11 +48,20 @@ class HomeScreen extends React.Component {
     }
   };
 
+  handleNameChange = pokemonName => {
+    Store.pokemonName = pokemonName
+    if (this.state.pokemonExactName !== "") {
+      this.props.history.push('/index')
+    }
+    this.setState({ pokemonName, pokemonExactName: "" });
+  };
+
+
 
   render() {
     return (
       <View>
-<SearchBarPokemon/>
+<SearchBar value={this.state.pokemonName} onChange={this.handleNameChange} nbItem={this.state.itemCount}/>
 
 
         <Navigationbar
@@ -72,9 +83,12 @@ class HomeScreen extends React.Component {
 
   
   fetchData = (currentPage) => {
-    let request = new Request(
-      `https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32`
-    );
+    let request = null
+    this.state.pokemonExactName !== "" ?
+    request = new Request(`https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32&name="${this.state.pokemonExactName}"`)
+    :
+    request = new Request(`https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32&name=${this.state.pokemonName}`)
+
 
     fetch(request)
       .then(results => {
@@ -97,6 +111,12 @@ class HomeScreen extends React.Component {
   // Fetch de l'api
   componentDidMount() {
     this.fetchData(this.state.currentPage);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pokemonName !== this.state.pokemonName) {
+      this.fetchData(1);
+    }
   }
 
 }
