@@ -4,7 +4,7 @@ import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
 import Store from '../Store';
-
+import SearchBarPokemon from "../components/SearchBarPokemon";
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +50,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View>
+<SearchBarPokemon/>
+
+
         <Navigationbar
           currentPage={this.state.currentPage}
           firstPage={this.firstPage.bind(this)}
