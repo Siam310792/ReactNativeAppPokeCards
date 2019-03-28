@@ -16,8 +16,8 @@ class HomeScreen extends React.Component {
       currentPage: Store.currentPage,
       itemCount: 0,
       nbPage: 0,
+      pokemonName: Store.pokemonName,
       favorites : []
-    pokemonName: Store.pokemonName
     };
   }
 
