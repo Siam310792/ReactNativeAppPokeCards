@@ -4,6 +4,9 @@ import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
 import Store from '../Store';
+import SearchBarPokemon from "../components/SearchBarPokemon";
+
+
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class HomeScreen extends React.Component {
       itemCount: 0,
       nbPage: 0,
       favorites : []
+    pokemonName: Store.pokemonName
     };
   }
 
@@ -47,10 +51,20 @@ class HomeScreen extends React.Component {
     }
   };
 
+  handleNameChange = pokemonName => {
+    Store.pokemonName = pokemonName
+    
+    this.setState({ pokemonName });
+  };
+
+
 
   render() {
     return (
       <View>
+        <SearchBarPokemon value={this.state.pokemonName} onChange={this.handleNameChange} nbItem={this.state.itemCount}/>
+
+
         <Navigationbar
           currentPage={this.state.currentPage}
           firstPage={this.firstPage.bind(this)}
@@ -70,9 +84,10 @@ class HomeScreen extends React.Component {
 
   
   fetchData = (currentPage) => {
-    let request = new Request(
-      `https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32`
-    );
+    let request = null
+    
+    request = new Request(`https://api.pokemontcg.io/v1/cards?page=${currentPage}&pageSize=32&name=${this.state.pokemonName}`)
+
 
     fetch(request)
       .then(results => {
@@ -95,6 +110,12 @@ class HomeScreen extends React.Component {
   // Fetch de l'api
   componentDidMount() {
     this.fetchData(this.state.currentPage);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pokemonName !== this.state.pokemonName) {
+      this.fetchData(1);
+    }
   }
 
 }
