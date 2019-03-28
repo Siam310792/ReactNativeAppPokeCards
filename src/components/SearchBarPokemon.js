@@ -1,23 +1,17 @@
 
 import React from "react";
 import { SearchBar } from "react-native-elements";
-import HomeScreen from "../screens/HomeScreen";
-//import SearchBarPokemon from "../components/SearchBarPokemon";
 
-class SearchBarPokemon extends React.Component {
-   
-  
+function SearchBarPokemon(props) {
 
-    render() {
-    
-      return (
-        <SearchBar
-          placeholder="Type Here..."
-          onChange={HomeScreen.handleNameChange}
-          nbItem={HomeScreen.state.itemCount}
-          value={HomeScreen.state.pokemonName}
-        />
-      );
-    }
-  }
+  return (
+    <SearchBar
+      placeholder="Type Here..."
+      onChangeText={props.onChange}
+      nbItem={props.nbItem}
+      value={props.value}
+    />
+  );
+}
+
 export default SearchBarPokemon
