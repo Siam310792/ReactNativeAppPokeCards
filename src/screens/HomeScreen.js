@@ -1,5 +1,5 @@
 import React from "react";
-import {View} from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
@@ -12,7 +12,8 @@ class HomeScreen extends React.Component {
       cards: [],
       currentPage: Store.currentPage,
       itemCount: 0,
-      nbPage: 0
+      nbPage: 0,
+      favorites : []
     };
   }
 
@@ -94,6 +95,7 @@ class HomeScreen extends React.Component {
   // Fetch de l'api
   componentDidMount() {
     this.fetchData(this.state.currentPage);
+    syncStorage.getItem('favorites').then((value) => this.setState({ 'favorites': value }))
   }
 
 }

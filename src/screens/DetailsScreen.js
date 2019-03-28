@@ -6,15 +6,21 @@ class DetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      card : this.props.navigation.getParam("card"),
       onFavorite : false,
       sourceImage : require('../../assets/whitestar.png')
     };
+  }
+
+  setCard = (value) => {
+    AsyncStorage.setItem('favorites', value);
   }
 
   _onPressStar() {
     if (this.state.onFavorite) {
       this.setState( { sourceImage: require('../../assets/goldstar.png') } )
       this.setState( { onFavorite : false })
+      this.setCard(this.state.card)
     } else {
       this.setState( { sourceImage: require('../../assets/whitestar.png') } )
       this.setState( { onFavorite : true })
@@ -22,8 +28,7 @@ class DetailsScreen extends React.Component {
   }
 
   render() {
-    const card = this.props.navigation.getParam("card");
-
+   
     return (
       <View
         style={{
@@ -39,7 +44,7 @@ class DetailsScreen extends React.Component {
         />
       </TouchableOpacity>
 
-        <Text h4>{card.name}</Text>
+        <Text h4>{this.state.card.name}</Text>
         <Image
           source={{ uri: card.imageUrl }}
           style={{ width: 400, height: 550 }}
