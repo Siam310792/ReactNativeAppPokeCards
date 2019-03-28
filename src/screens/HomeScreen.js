@@ -95,7 +95,6 @@ class HomeScreen extends React.Component {
   // Fetch de l'api
   componentDidMount() {
     this.fetchData(this.state.currentPage);
-    syncStorage.getItem('favorites').then((value) => this.setState({ 'favorites': value }))
   }
 
 }

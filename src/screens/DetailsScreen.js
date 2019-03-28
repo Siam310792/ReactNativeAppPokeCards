@@ -12,15 +12,10 @@ class DetailsScreen extends React.Component {
     };
   }
 
-  setCard = (value) => {
-    AsyncStorage.setItem('favorites', value);
-  }
-
   _onPressStar() {
     if (this.state.onFavorite) {
       this.setState( { sourceImage: require('../../assets/goldstar.png') } )
       this.setState( { onFavorite : false })
-      this.setCard(this.state.card)
     } else {
       this.setState( { sourceImage: require('../../assets/whitestar.png') } )
       this.setState( { onFavorite : true })
@@ -46,7 +41,7 @@ class DetailsScreen extends React.Component {
 
         <Text h4>{this.state.card.name}</Text>
         <Image
-          source={{ uri: card.imageUrl }}
+          source={{ uri: this.state.card.imageUrl }}
           style={{ width: 400, height: 550 }}
         />
       </View>
