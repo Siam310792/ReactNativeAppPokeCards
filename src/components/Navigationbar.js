@@ -9,7 +9,7 @@ import {
   Header
 } from "react-native";
 import navBarStyles from "../style/NavBarStyles";
-import buttonStyles from "../style/NavBarStyles";
+import buttonStyles from "../style/ButtonStyles";
 
 
 function Navigationbar(props) {

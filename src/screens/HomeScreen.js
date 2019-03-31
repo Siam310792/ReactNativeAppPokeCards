@@ -1,11 +1,12 @@
 import React from "react";
-import { View, AsyncStorage } from "react-native";
-import { SearchBar } from "react-native-elements";
+import { View, AsyncStorage, TouchableOpacity } from "react-native";
 import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
 import Store from '../Store';
 import SearchBarPokemon from "../components/SearchBarPokemon";
-
+import buttonStyles from "../style/ButtonStyles";
+import { Image, Text } from "react-native-elements";
+import styles from "../style/Styles";
 
 
 class HomeScreen extends React.Component {
@@ -16,9 +17,13 @@ class HomeScreen extends React.Component {
       currentPage: Store.currentPage,
       itemCount: 0,
       nbPage: 0,
-      pokemonName: Store.pokemonName,
-      favorites : []
+      pokemonName: Store.pokemonName
+      //favorites : []
     };
+  }
+
+  _onPressButtonFavorites() {
+    this.props.navigation.navigate("Favorites", { cards : this.state.cards, navigation : this.props.navigation });
   }
 
   firstPage = () => {
@@ -57,12 +62,30 @@ class HomeScreen extends React.Component {
     this.setState({ pokemonName });
   };
 
-
+  //the functionality of the retrieveItem is shown below
+  async retrieveItem(key) {
+    try {
+      const retrievedItem =  await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+      return item;
+    } catch (error) {
+      console.log(error.message);
+    }
+      return
+    };
 
   render() {
     return (
       <View>
-        <SearchBarPokemon value={this.state.pokemonName} onChange={this.handleNameChange} nbItem={this.state.itemCount}/>
+        <View>
+          <SearchBarPokemon value={this.state.pokemonName} onChange={this.handleNameChange} nbItem={this.state.itemCount}/>
+          <TouchableOpacity activeOpacity={0.5} onPress={this._onPressButtonFavorites.bind(this)}>
+            <Image
+              source={require('../../assets/goldstar.png')}
+              style={buttonStyles.imageIconStyle}
+            />
+          </TouchableOpacity>
+        </View>
 
 
         <Navigationbar
@@ -101,15 +124,14 @@ class HomeScreen extends React.Component {
         this.setState({ cards: data.cards });
       })
       .catch(() => {});
-      console.log(this.state.currentPage)
       Store.currentPage = currentPage
       this.setState({ currentPage });
-      console.log(this.state.currentPage)
   };
 
   // Fetch de l'api
   componentDidMount() {
     this.fetchData(this.state.currentPage);
+    //AsyncStorage.getItem('favorites').then((value) => this.setState({ 'favorites' : value }))
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -117,7 +139,6 @@ class HomeScreen extends React.Component {
       this.fetchData(1);
     }
   }
-
 }
 
 export default HomeScreen;

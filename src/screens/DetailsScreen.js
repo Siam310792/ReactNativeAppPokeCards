@@ -12,10 +12,22 @@ class DetailsScreen extends React.Component {
     };
   }
 
+  async storeItem(key, item) {
+    try {
+        //we want to wait for the Promise returned by AsyncStorage.setItem()
+        //to be resolved to the actual value before returning the value
+        var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+        return jsonOfItem;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   _onPressStar() {
     if (this.state.onFavorite) {
       this.setState( { sourceImage: require('../../assets/goldstar.png') } )
       this.setState( { onFavorite : false })
+      storeItem('favorites', this.state.card)
     } else {
       this.setState( { sourceImage: require('../../assets/whitestar.png') } )
       this.setState( { onFavorite : true })
