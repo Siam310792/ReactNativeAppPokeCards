@@ -2,12 +2,12 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
   Image,
   FlatList,
   StyleSheet,
   Header
 } from "react-native";
+import { Button } from 'react-native-elements';
 import navBarStyles from "../style/NavBarStyles";
 import buttonStyles from "../style/NavBarStyles";
 
