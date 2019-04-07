@@ -1,5 +1,5 @@
 import React from "react";
-import {View} from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { SearchBar } from "react-native-elements";
 import PokemonList from "../components/PokemonList";
 import Navigationbar from "../components/Navigationbar";
@@ -16,7 +16,8 @@ class HomeScreen extends React.Component {
       currentPage: Store.currentPage,
       itemCount: 0,
       nbPage: 0,
-    pokemonName: Store.pokemonName
+      pokemonName: Store.pokemonName,
+      favorites : []
     };
   }
 
