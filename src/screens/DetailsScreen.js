@@ -14,10 +14,10 @@ class DetailsScreen extends React.Component {
 
   _onPressStar() {
     if (this.state.onFavorite) {
-      this.setState( { sourceImage: require('../../assets/goldstar.png') } )
+      this.setState( { sourceImage: require('../../assets/whitestar.png') } )
       this.setState( { onFavorite : false })
     } else {
-      this.setState( { sourceImage: require('../../assets/whitestar.png') } )
+      this.setState( { sourceImage: require('../../assets/goldstar.png') } )
       this.setState( { onFavorite : true })
     }
   }
@@ -29,7 +29,7 @@ class DetailsScreen extends React.Component {
         style={{
           flex: 1,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
           background: "green"
         }}
       >

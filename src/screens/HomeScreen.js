@@ -6,8 +6,6 @@ import Navigationbar from "../components/Navigationbar";
 import Store from '../Store';
 import SearchBarPokemon from "../components/SearchBarPokemon";
 
-
-
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
