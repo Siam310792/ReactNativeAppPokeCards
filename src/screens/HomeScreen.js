@@ -18,7 +18,6 @@ class HomeScreen extends React.Component {
       itemCount: 0,
       nbPage: 0,
       pokemonName: Store.pokemonName
-      //favorites : []
     };
   }
 
@@ -62,30 +61,19 @@ class HomeScreen extends React.Component {
     this.setState({ pokemonName });
   };
 
-  //the functionality of the retrieveItem is shown below
-  async retrieveItem(key) {
-    try {
-      const retrievedItem =  await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-      return item;
-    } catch (error) {
-      console.log(error.message);
-    }
-      return
-    };
-
   render() {
     return (
       <View>
-        <View>
           <SearchBarPokemon value={this.state.pokemonName} onChange={this.handleNameChange} nbItem={this.state.itemCount}/>
-          <TouchableOpacity activeOpacity={0.5} onPress={this._onPressButtonFavorites.bind(this)}>
-            <Image
-              source={require('../../assets/goldstar.png')}
-              style={buttonStyles.imageIconStyle}
-            />
-          </TouchableOpacity>
-        </View>
+          
+          <View style={styles.SBBTStyle}>
+            <TouchableOpacity activeOpacity={0.5} onPress={this._onPressButtonFavorites.bind(this)}>
+              <Image
+                source={require('../../assets/goldstar.png')}
+                style={buttonStyles.imageIconStyle}
+              />
+            </TouchableOpacity>
+          </View>
 
 
         <Navigationbar

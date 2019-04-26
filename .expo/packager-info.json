@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 746,
+  "packagerPid": 22556,
   "expoServerNgrokUrl": "https://iq-t9k.anonymous.reactnativeapppokecards.exp.direct",
   "packagerNgrokUrl": "https://packager.iq-t9k.anonymous.reactnativeapppokecards.exp.direct",
-  "ngrokPid": 760,
+  "ngrokPid": 22696,
   "webpackServerPort": null
 }

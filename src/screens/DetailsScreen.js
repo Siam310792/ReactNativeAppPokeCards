@@ -1,6 +1,7 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, AsyncStorage } from "react-native";
 import { Image, Text } from "react-native-elements";
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 class DetailsScreen extends React.Component {
   constructor(props) {
@@ -8,15 +9,33 @@ class DetailsScreen extends React.Component {
     this.state = {
       card : this.props.navigation.getParam("card"),
       onFavorite : false,
-      sourceImage : require('../../assets/whitestar.png')
+      favoritesArray : []
     };
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    const {params = {}} = navigation.state
+    return {      
+      headerTitle: `${params.name}`,
+      headerRight: (            
+        //<Icon.Button name="favorite-border" backgroundColor="transparent" color="#007aff" onPress={() => this._onPressStar.bind(this)} />
+        <Icon.Button name="favorite-border" backgroundColor="transparent" color="#007aff" />
+      )
+    }
   }
 
   async storeItem(key, item) {
     try {
-        //we want to wait for the Promise returned by AsyncStorage.setItem()
-        //to be resolved to the actual value before returning the value
         var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+        return jsonOfItem;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async deleteItem(key, item) {
+    try {
+        var jsonOfItem = await AsyncStorage.deleteItem(key, JSON.stringify(item));
         return jsonOfItem;
     } catch (error) {
       console.log(error.message);
@@ -25,39 +44,35 @@ class DetailsScreen extends React.Component {
 
   _onPressStar() {
     if (this.state.onFavorite) {
-      this.setState( { sourceImage: require('../../assets/goldstar.png') } )
-      this.setState( { onFavorite : false })
-      storeItem('favorites', this.state.card)
+      this.deleteItem('favorites', this.state.card);
+      this.setState({onFavorite:false});
     } else {
-      this.setState( { sourceImage: require('../../assets/whitestar.png') } )
-      this.setState( { onFavorite : true })
+      this.storeItem('favorites', this.state.card);
+      this.setState({onFavorite:true});
     }
   }
 
   render() {
-   
     return (
       <View
         style={{
           flex: 1,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
           background: "green"
         }}
       >
-      <TouchableOpacity activeOpacity={0.5} onPress={ this._onPressStar.bind(this) } >
-      <Image source={this.state.sourceImage}  
-        style={{ width: 20, height: 20 }} 
-        />
-      </TouchableOpacity>
 
-        <Text h4>{this.state.card.name}</Text>
         <Image
           source={{ uri: this.state.card.imageUrl }}
           style={{ width: 400, height: 550 }}
         />
       </View>
     );
+  }
+
+  componentDidMount() {
+    
   }
 }
 

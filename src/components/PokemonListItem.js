@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity, Alert } from "react-native";
+import { Image, TouchableOpacity, AsyncStorage } from "react-native";
 
 class PokemonListItem extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class PokemonListItem extends React.Component {
   }
 
   _onPressButton() {
-    this.props.navigation.navigate("Details", { card: this.props.card });
+    this.props.navigation.navigate("Details", { card: this.props.card, name: this.props.card.name });
   }
 
   render() {

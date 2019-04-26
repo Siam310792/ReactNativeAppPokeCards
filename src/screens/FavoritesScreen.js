@@ -8,26 +8,33 @@ import buttonStyles from "../style/ButtonStyles";
     constructor(props) {
       super(props);
       this.state = {
-        cards: this.props.navigation.getParam("cards"),
+        favoritesCards: this.retrieveItem("favorites").then((goals) => {
+            this.setState({favoritesCards : goals});
+          }).catch((error) => {
+          console.log('Promise is rejected with error: ' + error);
+          }), 
         navigation : this.props.navigation.getParam("navigation")
       };
     }
 
-    async getKey() {
+    async retrieveItem(key) {
       try {
-        const value = await AsyncStorage.getItem('favoritesStore');
-        this.setState({cards: value});
+        const retrievedItem =  await AsyncStorage.getItem(key);
+        const item = JSON.parse(retrievedItem);
+        return item;
       } catch (error) {
-        console.log("Error retrieving data" + error);
+        console.log(error.message);
       }
-    }
+        return
+      };
 
     render() {
       return (
-        <PokemonList
-            pokemons={this.state.cards}
+        <Text>Page des favoris</Text>
+        /*<PokemonList
+            pokemons={this.state.favoritesCards}
             navigation={this.props.navigation}
-        />
+        />*/
       );
     }
   }
