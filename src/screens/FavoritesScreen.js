@@ -8,11 +8,12 @@ import buttonStyles from "../style/ButtonStyles";
     constructor(props) {
       super(props);
       this.state = {
-        favoritesCards: this.retrieveItem("favorites").then((goals) => {
-            this.setState({favoritesCards : goals});
+        /*favoritesCards: this.retrieveItem("favorites").then((cards) => {
+            this.setState({favoritesCards : cards});
           }).catch((error) => {
           console.log('Promise is rejected with error: ' + error);
-          }), 
+          }), */
+          favoritesCards:[],
         navigation : this.props.navigation.getParam("navigation")
       };
     }
