@@ -8,7 +8,6 @@ import buttonStyles from "../style/ButtonStyles";
 import { Image, Text } from "react-native-elements";
 import styles from "../style/Styles";
 
-
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
