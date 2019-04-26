@@ -19,6 +19,13 @@ export default buttonStyles = StyleSheet.create({
     marginLeft:50,
     marginRight:50,
     marginTop:20
-  }
+  },
+  imageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+  },
 });
 
